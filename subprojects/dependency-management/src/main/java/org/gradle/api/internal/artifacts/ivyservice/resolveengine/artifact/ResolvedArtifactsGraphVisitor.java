@@ -94,6 +94,12 @@ public class ResolvedArtifactsGraphVisitor implements DependencyGraphVisitor {
 
         ArtifactsForNode configurationArtifactSet = artifactsByNodeId.get(toConfiguration.getNodeId());
         if (configurationArtifactSet == null) {
+            // TODO:DAZ I think this isn't quite right, since we are not applying artifact exclusions defined for the target node.
+            // TODO:DAZ While fixing this, we should be smarter about artifact exclusions: these can be completely separate from module exclusions.
+//            ModuleExclusion nodeExclusions = targetConfiguration.getExclusions(moduleExclusions);
+//            ModuleExclusion edgeExclusions = dependency.getExclusions();
+//            ModuleExclusion exclusions = moduleExclusions.intersect(edgeExclusions, nodeExclusions);
+
             ModuleExclusion exclusions = dependency.getExclusions();
             ArtifactSet nodeArtifacts = artifactSelector.resolveArtifacts(component, targetConfiguration, exclusions);
             int id = nextId++;
