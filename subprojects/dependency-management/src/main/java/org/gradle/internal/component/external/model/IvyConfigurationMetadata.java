@@ -21,6 +21,7 @@ import org.gradle.api.artifacts.component.ModuleComponentIdentifier;
 import org.gradle.api.internal.artifacts.ivyservice.resolveengine.excludes.ModuleExclusion;
 import org.gradle.api.internal.artifacts.ivyservice.resolveengine.excludes.ModuleExclusions;
 import org.gradle.internal.component.model.Exclude;
+import org.gradle.internal.component.model.ExcludeMetadata;
 
 import java.util.List;
 
@@ -49,7 +50,7 @@ class IvyConfigurationMetadata extends DefaultConfigurationMetadata {
     @Override
     public ModuleExclusion getExclusions(ModuleExclusions moduleExclusions) {
         if (exclusions == null) {
-            exclusions = moduleExclusions.excludeAny(excludes);
+            exclusions = moduleExclusions.excludeAny(ImmutableList.<ExcludeMetadata>copyOf(excludes));
         }
         return exclusions;
     }
